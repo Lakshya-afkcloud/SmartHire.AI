@@ -10,7 +10,8 @@ import InterviewPage from './pages/InterviewPage'
 import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'
 import InterviewReport from './pages/InterviewReport'
-import { ServerUrl } from './utils/serverUrl'
+
+export const ServerUrl  = "http://localhost:8000"
 
 function App() {
 
