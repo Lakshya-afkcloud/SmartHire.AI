@@ -1,15 +1,15 @@
 import React from 'react'
-import maleVideo from "../assets/videos/male-ai.mp4"
-import femaleVideo from "../assets/videos/female-ai.mp4"
 import Timer from './Timer'
-import { motion } from "motion/react"
 import { FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import { useState } from 'react'
 import { useRef } from 'react'
 import { useEffect } from 'react'
 import axios from "axios"
-import { ServerUrl } from '../App'
+import { ServerUrl } from '../utils/serverUrl'
 import { BsArrowRight } from 'react-icons/bs'
+
+const maleVideo = "/videos/male-ai.mp4"
+const femaleVideo = "/videos/female-ai.mp4"
 
 function Step2Interview({ interviewData, onFinish }) {
   const { interviewId, questions, userName } = interviewData;
@@ -82,6 +82,21 @@ function Step2Interview({ interviewData, onFinish }) {
 
   const videoSource = voiceGender === "male" ? maleVideo : femaleVideo;
 
+  const startMic = () => {
+    if (recognitionRef.current && !isAIPlaying) {
+      try {
+        recognitionRef.current.start();
+      } catch {
+        // Ignore errors when starting recognition
+      }
+    }
+  };
+
+  const stopMic = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+  };
 
   /* ---------------- SPEAK FUNCTION ---------------- */
   const speakText = (text) => {
@@ -223,19 +238,6 @@ function Step2Interview({ interviewData, onFinish }) {
   }, []);
 
 
-  const startMic = () => {
-    if (recognitionRef.current && !isAIPlaying) {
-      try {
-        recognitionRef.current.start();
-      } catch { }
-    }
-  };
-
-  const stopMic = () => {
-    if (recognitionRef.current) {
-      recognitionRef.current.stop();
-    }
-  };
   const toggleMic = () => {
     if (isMicOn) {
       stopMic();

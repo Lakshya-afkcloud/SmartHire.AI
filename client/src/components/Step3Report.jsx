@@ -1,7 +1,6 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { motion } from "motion/react"
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
@@ -9,6 +8,8 @@ import jsPDF from "jspdf"
 import "jspdf-autotable"
 
 function Step3Report({ report }) {
+  const navigate = useNavigate();
+
   if (!report) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -16,7 +17,6 @@ function Step3Report({ report }) {
       </div>
     );
   }
-  const navigate = useNavigate()
   const {
     finalScore = 0,
     confidence = 0,
